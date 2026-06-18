@@ -21,4 +21,5 @@ theme:
 
 plugins:
   - search
+  - blog
   - mkdocs-jupyter
