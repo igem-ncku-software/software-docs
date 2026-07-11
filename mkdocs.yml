@@ -2,7 +2,7 @@ site_name: iGEM NCKU Software Documentation
 site_url: https://mydomain.org/mysite
 theme:
   name: material
-  logo: assets/logo.jpg
+  logo: assets/logo.png
   palette:
 
     # Palette toggle for light mode
