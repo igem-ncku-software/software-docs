@@ -1,0 +1,1665 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mydomain.org/mysite/blog/2026/07/11/aptamer%E8%AE%8A%E7%95%B0%E9%AB%94%E7%B5%90%E5%90%88%E5%8A%9B%E9%A0%90%E6%B8%AC%E6%B5%81%E7%A8%8B%E5%BE%9E%E5%BA%8F%E5%88%97%E5%88%B0%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AE%8C%E6%95%B4%E6%9E%B6%E6%A7%8B/">
+      
+      
+        <link rel="prev" href="../%E7%B5%90%E6%9E%9C%E5%A0%B1%E5%91%8A/">
+      
+      
+        <link rel="next" href="../../12/%E7%B6%B2%E9%A0%81%E5%B7%A5%E5%85%B7%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%B7%9A%E7%9A%84%E7%B4%80%E9%8C%84/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Aptamer變異體結合力預測流程：從序列到排序的完整架構 - iGEM NCKU Software Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#aptamer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="iGEM NCKU Software Documentation" class="md-header__button md-logo" aria-label="iGEM NCKU Software Documentation" data-md-component="logo">
+      
+  <img src="../../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            iGEM NCKU Software Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Aptamer變異體結合力預測流程：從序列到排序的完整架構
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="iGEM NCKU Software Documentation" class="md-nav__button md-logo" aria-label="iGEM NCKU Software Documentation" data-md-component="logo">
+      
+  <img src="../../../../../assets/logo.png" alt="logo">
+
+    </a>
+    iGEM NCKU Software Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome to iGEM NCKU Software Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../update-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    更新網站的流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      <a href="../../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manual
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Manual
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../manual/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorial
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../tutorial/linux/linux-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux 基礎筆記（WSL 環境）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python libraries
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python libraries
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../tutorial/python-libraries/python_venv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python 虛擬環境（Virtual Environment）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3_2" id="__nav_5_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Biopython tutorial
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Biopython tutorial
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../tutorial/python-libraries/biopython-tutorial/biopython/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Biopython
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3_3" id="__nav_5_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fastapi tutorial
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Fastapi tutorial
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../tutorial/python-libraries/fastapi-tutorial/fastapi-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fastapi tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quarto tutorial
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quarto tutorial
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../tutorial/quarto-tutorial/quarto-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quarto Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        東西有點多先不傳上去，有需要看什麼檔案可以跟我說！
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        整體架構
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alphafold3hdock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼選擇AlphaFold3與HDOCK
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為什麼選擇AlphaFold3與HDOCK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alphafold3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AlphaFold3是什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnafoldrnacomposer3drna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼不用RNAfold、RNAComposer、3dRNA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hdock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼選擇HDOCK做交叉驗證
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        測試系統
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        階段1：變異體序列產生
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="階段1：變異體序列產生">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生物學考量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        操作方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2af3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        階段2：AF3批次結構預測
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="階段2：AF3批次結構預測">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生物學意義
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        操作方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iptm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關鍵輸出：ipTM
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3iptm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        階段3：依ipTM排序
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4hdock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        階段4：拆分結構，準備HDOCK輸入
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="階段4：拆分結構，準備HDOCK輸入">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼需要這一步
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        操作方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5hdock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        階段5：HDOCK獨立對接
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="階段5：HDOCK獨立對接">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        操作方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關鍵輸出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        綜合排序結果
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用工具與技術清單
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        流程限制
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2026-07-11 00:00:00+00:00" class="md-ellipsis">July 11, 2026</time>
+                      </div>
+                    </li>
+                    
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              3 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
+
+
+
+<h1 id="aptamer">Aptamer變異體結合力預測流程：從序列到排序的完整架構<a class="headerlink" href="#aptamer" title="Permanent link">&para;</a></h1>
+<p>這篇文章記錄一套用AlphaFold3（AF3）與HDOCK篩選aptamer變異體的計算流程，從序列輸入到最終排序，包含每一步驟的操作方式、生物學意義，以及兩個工具如何交叉驗證彼此的判斷。</p>
+<!-- more -->
+
+<h2 id="_1">東西有點多先不傳上去，有需要看什麼檔案可以跟我說！<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><img alt="圖1" src="../../../../2026-07-11/images/1.png" /></p>
+<h2 id="_2">整體架構<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>整個流程分成五個階段，資料由上而下流動：</p>
+<div class="highlight"><pre><span></span><code>階段1：變異體序列產生
+   ↓
+階段2：AF3批次結構預測（蛋白質+aptamer複合體）
+   ↓
+階段3：依ipTM信心分數排序
+   ↓
+階段4：拆分結構，準備HDOCK輸入
+   ↓
+階段5：HDOCK獨立對接，交叉驗證排序
+</code></pre></div>
+<p>每個階段的輸出，就是下一階段的輸入，整條線可以完全用Python自動化銜接，只有AF3和HDOCK這兩個網頁服務的送出/下載需要人工操作。</p>
+<h2 id="alphafold3hdock">為什麼選擇AlphaFold3與HDOCK<a class="headerlink" href="#alphafold3hdock" title="Permanent link">&para;</a></h2>
+<h3 id="alphafold3">AlphaFold3是什麼<a class="headerlink" href="#alphafold3" title="Permanent link">&para;</a></h3>
+<p>AlphaFold3（AF3）是DeepMind開發的深度學習模型，用來從序列預測生物分子的立體結構。它的前身AlphaFold2主要專精於單一蛋白質的摺疊預測；AF3的重大進展在於<strong>可以同時處理蛋白質、DNA、RNA、小分子配體等不同種類的分子，並直接預測它們組合在一起後的複合體結構</strong>，而不只是各自獨立摺疊。對這次的需求來說，這代表我們可以把「凝血酶序列」和「aptamer序列」一起丟進去，直接得到兩者結合後的樣子，不需要先分開預測再另外拼接。</p>
+<h3 id="rnafoldrnacomposer3drna">為什麼不用RNAfold、RNAComposer、3dRNA<a class="headerlink" href="#rnafoldrnacomposer3drna" title="Permanent link">&para;</a></h3>
+<p>這三個工具是核酸結構預測領域常見的選項，但仔細看它們的設計目的，會發現跟我們的需求有幾個關鍵落差：</p>
+<ul>
+<li><strong>RNAfold</strong>：只做<strong>二級結構</strong>預測，也就是計算這段核酸序列裡哪些鹼基會兩兩配對、形成什麼樣的莖環(stem-loop)排列，輸出的是一張「哪裡跟哪裡配對」的示意圖，<strong>沒有三維座標</strong>。更關鍵的是，RNAfold的演算法建立在標準Watson-Crick配對與自由能最小化規則上，<strong>這套規則本身沒有考慮G-quadruplex這種靠鳥嘌呤之間Hoogsteen氫鍵堆疊形成的非典型結構</strong>。TBA正好就是G-quadruplex，如果拿它的序列去跑RNAfold，很可能會被誤判成普通的髮夾(hairpin)結構，從最源頭的判斷就已經偏離真實摺疊方式。</li>
+<li><strong>RNAComposer / 3dRNA</strong>：這兩個工具會往前一步，把二級結構「組裝」成三維結構，但運作邏輯是<strong>先要有二級結構當輸入</strong>（通常就是RNAfold算出來的那張配對圖），再從資料庫裡找相似的三維片段組合起來拼成完整結構。也就是說，要用這兩個工具，得先跑一次RNAfold或類似工具產生二級結構，再送進RNAComposer/3dRNA組裝，是<strong>兩道獨立步驟</strong>，而且組裝出來的三維結構品質，很大程度取決於一開始那張二級結構圖準不準（相關文獻比較顯示，這類方法的預測結構與真實晶體結構的RMSD平均落在5Å左右，且準確度隨輸入二級結構的品質浮動）。</li>
+<li><strong>最關鍵的落差</strong>：這三個工具都是<strong>只針對核酸本身</strong>設計的，主要鎖定RNA（DNA的支援更少），而且<strong>完全不處理跟蛋白質的交互作用</strong>。就算用RNAComposer/3dRNA把aptamer的三維結構做出來，還是得另外找對接工具（也就是我們原本就打算用的HDOCK）去跟凝血酶做結合預測，等於這條路徑是「RNAfold → RNAComposer/3dRNA → 再對接一次」，比AF3直接「序列進去、複合體結構出來」多了兩道手續，而且我們的aptamer是<strong>單股DNA</strong>，這幾個工具對DNA的支援本來就比RNA弱。</li>
+</ul>
+<p>AF3的做法是<strong>直接從DNA/蛋白質的一級序列出發，一步預測出兩者結合後的三維複合體結構</strong>，跳過「先算二級結構、再組裝三維、再對接」這個多階段流程，這對我們需要批次處理18個變異體來說，流程更精簡、也更不容易在中間任何一站累積誤差。</p>
+<p>需要說明的是，這不代表RNAComposer/3dRNA「比較差」——在已知準確二級結構的前提下，這類工具對某些特定RNA（例如已有清楚莖環結構的核糖開關）的三維預測有時反而更貼近實驗結構。只是對我們這個「批次篩選DNA aptamer變異體、且需要同時得到蛋白質結合資訊」的任務來說，AF3一步到位的設計更符合需求。</p>
+<h3 id="hdock">為什麼選擇HDOCK做交叉驗證<a class="headerlink" href="#hdock" title="Permanent link">&para;</a></h3>
+<p>AF3給出的ipTM是單一模型的信心分數，為了避免只依賴一套演算法的判斷，我們額外找一個<strong>原理完全不同</strong>的工具做第二意見。分子對接(molecular docking)工具有幾種常見選擇：</p>
+<ul>
+<li><strong>HADDOCK</strong>：功能強大、可以整合實驗證據（例如NMR化學位移、突變數據）來引導對接，但這也代表它比較適合「已經知道結合位點大概在哪裡」的情況；如果沒有額外的實驗資訊，需要用ab-initio模式增加大量取樣，運算時間會拉長很多。</li>
+<li><strong>ClusPro</strong>：主要針對蛋白質-蛋白質對接最佳化，對蛋白質-DNA/RNA這類系統的支援與評分函數不是它的設計重點。</li>
+<li><strong>HDOCK</strong>：同時支援蛋白質-蛋白質與<strong>蛋白質-DNA/RNA對接</strong>，內建專門針對核酸交互作用設計的統計評分函數，且採用「模板比對＋從頭對接」的混合演算法，<strong>不需要額外提供結合位點資訊也能盲測(blind docking)</strong>，單一job運算時間約10-20分鐘，適合我們需要對多個變異體快速批次驗證的場景。</li>
+</ul>
+<p>考量到我們的系統是蛋白質-DNA複合體、且不想預先假設結合位點（想讓工具自己盲測找答案），HDOCK在「支援的分子類型」與「不依賴額外實驗資訊」這兩點上最符合需求。</p>
+<h2 id="_3">測試系統<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>流程用一組已有實驗結構可對照的配對來驗證準確度：</p>
+<ul>
+<li><strong>Aptamer</strong>：Thrombin Binding Aptamer (TBA)，序列 <code>GGTTGGTGTGGTTGG</code>，長度15個核苷酸。這段DNA不是雙股螺旋，而是靠序列中的鳥嘌呤(G)彼此以氫鍵堆疊，摺疊成一種稱為<strong>G-quadruplex</strong>的環狀結構——可以想像成DNA把自己捲成一個甜甜圈狀的立體骨架，而不是常見的雙股螺旋。</li>
+<li><strong>目標蛋白質</strong>：人類α-凝血酶(human alpha-thrombin)，這個蛋白質在血液中由兩條胺基酸鏈組成（light chain約36個胺基酸、heavy chain約259個胺基酸），兩條鏈以雙硫鍵連接，缺一不可，預測時必須把兩條鏈都輸入才是完整的凝血酶。</li>
+<li>對照結構：PDB代碼<strong>1HUT</strong>，這是已經用X光繞射解出的TBA與凝血酶複合體晶體結構，可以拿來檢查電腦預測出的結合位置跟真實已知的結合位置是否吻合。</li>
+</ul>
+<h2 id="1">階段1：變異體序列產生<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h3 id="_4">生物學考量<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>G-quadruplex的穩定性主要由堆疊在一起的G來維持，序列中的T則是連接這些G的loop區域，柔性較高、對核心摺疊的貢獻較小。因此變異體設計時，<strong>只針對loop區域的T做取代</strong>，避免直接破壞G-quadruplex的骨架，讓變異體之間的比較才有意義（否則亂突變G，很可能每個變異體都摺不起來，比較的是「哪個摺不起來得比較不嚴重」而已）。</p>
+<p>TBA序列中選定的可突變位置（1-indexed）：第3、4、7、9、12、13位，這些都落在loop區域。每個位置嘗試取代成其他3種鹼基，理論上會產生 6×3 = 18個變異體。</p>
+<h3 id="_5">操作方式<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>用Python讀取野生型序列的FASTA檔，對指定位置逐一做鹼基取代，輸出成一份CSV清單，每一列是一個變異體的編號與序列，方便後續程式讀取。</p>
+<h2 id="2af3">階段2：AF3批次結構預測<a class="headerlink" href="#2af3" title="Permanent link">&para;</a></h2>
+<h3 id="_6">生物學意義<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>這一步要回答的問題是：<strong>「這條DNA序列跟凝血酶放在一起，最後會摺疊、結合成什麼樣子？」</strong>AF3是一個深度學習模型，輸入胺基酸序列與核苷酸序列，輸出預測的三維座標，包含DNA、蛋白質分別怎麼摺疊，以及兩者接觸的介面。</p>
+<h3 id="_7">操作方式<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ol>
+<li>把每個變異體的DNA序列，連同凝血酶的兩條蛋白質鏈序列，一起打包成AF3規定的JSON格式（每個「job」包含2個proteinChain + 1個dnaSequence）</li>
+<li>一次性上傳到AlphaFold Server（一個檔案最多可放100個job，19個變異體可以一次送完）</li>
+<li>等待運算，每個job約數分鐘到十幾分鐘</li>
+<li>下載結果，每個job會得到5組模型（依信心排序，第0組為最佳），以及對應的信心指標</li>
+</ol>
+<h3 id="iptm">關鍵輸出：ipTM<a class="headerlink" href="#iptm" title="Permanent link">&para;</a></h3>
+<p>AF3會給每個預測結果一個<strong>ipTM分數</strong>（0~1之間），代表模型對「這兩個分子是否真的結合在一起」的信心程度。可以理解成AF3自己對這次預測打的信心分數，<strong>不是直接測量到的結合力數值</strong>，數值本身不能換算成Kd等實驗常數，只能用來做候選之間的相對排序。</p>
+<h2 id="3iptm">階段3：依ipTM排序<a class="headerlink" href="#3iptm" title="Permanent link">&para;</a></h2>
+<p>用Python掃描所有下載下來的結果資料夾，讀取每個job的信心摘要檔案，取出ipTM、pTM、ranking_score，整理成一張CSV表格並依ipTM由高到低排序，同時畫成長條圖，方便一眼看出哪些變異體的預測結合力優於野生型。</p>
+<p>在13個已完成的變異體中，<code>pos3_ttog</code>與<code>pos13_ttog</code>的ipTM(0.81)略高於野生型(0.80)，成為後續驗證的重點候選。</p>
+<h2 id="4hdock">階段4：拆分結構，準備HDOCK輸入<a class="headerlink" href="#4hdock" title="Permanent link">&para;</a></h2>
+<h3 id="_8">為什麼需要這一步<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>ipTM是AF3單一模型給出的信心分數，如果只依賴這一個數字排序，等於把整個判斷押在同一套算法上。為了避免這個風險，流程加入HDOCK作為<strong>獨立的第二意見</strong>：把AF3預測出的複合體結構拆開，讓另一套完全不同原理的演算法（基於形狀互補與能量計算的FFT對接算法）重新猜一次這兩個分子怎麼兜在一起。如果兩套獨立方法都同意某個變異體結合得比較好，這個結論才站得住腳。</p>
+<h3 id="_9">操作方式<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>用Python讀取AF3輸出的結構檔（.cif格式），依殘基類型（DNA殘基 vs 胺基酸殘基）自動分離，輸出成兩個獨立的PDB檔案：一個只含凝血酶的兩條蛋白質鏈（作為docking的receptor），一個只含DNA aptamer（作為docking的ligand）。</p>
+<h2 id="5hdock">階段5：HDOCK獨立對接<a class="headerlink" href="#5hdock" title="Permanent link">&para;</a></h2>
+<h3 id="_10">操作方式<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>把拆分出來的蛋白質PDB與aptamer PDB，分別作為receptor與ligand上傳到HDOCK Server，送出對接運算，約10~20分鐘後取得結果。</p>
+<h3 id="_11">關鍵輸出<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Docking Score</strong>：對接後的能量穩定度分數，<strong>數值越負代表這個結合姿勢在物理上越穩定</strong>，方向與ipTM（越高越好）相反，整理資料時需特別留意。</li>
+<li><strong>Ligand RMSD</strong>：HDOCK排名前幾名的模型彼此的結構差異程度。數值小（例如&lt;2Å）代表HDOCK對這個結合姿勢的判斷高度收斂、重複得到類似答案；數值大（例如40幾Å）則代表HDOCK自己也沒有把握，排名前幾的模型彼此天差地遠，這種情況下的Docking Score可信度應該打折扣。</li>
+</ul>
+<h2 id="_12">綜合排序結果<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>目前已完成13/19個變異體的AF3預測，並對排名前段的3個候選做了HDOCK交叉驗證：</p>
+<table>
+<thead>
+<tr>
+<th>候選</th>
+<th>AF3 ipTM</th>
+<th>HDOCK Docking Score</th>
+<th>HDOCK前2模型RMSD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pos3_ttog</td>
+<td>0.81</td>
+<td><strong>-278.92</strong>（三者中最佳）</td>
+<td>0.78 Å（高度收斂）</td>
+</tr>
+<tr>
+<td>pos13_ttog</td>
+<td>0.81</td>
+<td>-244.50（三者中最差）</td>
+<td>1.45 Å</td>
+</tr>
+<tr>
+<td>wildtype（對照組）</td>
+<td>0.80</td>
+<td>-264.37</td>
+<td>2.08 Å</td>
+</tr>
+</tbody>
+</table>
+<p><code>pos3_ttog</code>是唯一在兩套獨立方法中都排名第一的變異體，且HDOCK對它的結合姿勢判斷高度收斂，是目前預測可信度最高的候選。<code>pos13_ttog</code>則出現兩套方法意見分歧的情況：AF3給出高分，但HDOCK認為它結合得比野生型還差——這類分歧本身就是有用的資訊，代表這個候選的預測結果還不夠穩固，不建議只憑單一工具的分數下判斷。</p>
+<h2 id="_13">使用工具與技術清單<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>工具</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>結構預測</td>
+<td><strong>AlphaFold Server (AlphaFold3)</strong></td>
+<td>預測蛋白質-DNA複合體結構，輸出ipTM信心分數</td>
+</tr>
+<tr>
+<td>分子對接</td>
+<td><strong>HDOCK Server</strong></td>
+<td>獨立對接驗證，輸出Docking Score與Ligand RMSD</td>
+</tr>
+<tr>
+<td>程式語言</td>
+<td><strong>Python 3</strong></td>
+<td>串接整條流程的自動化腳本</td>
+</tr>
+<tr>
+<td>序列/結構處理</td>
+<td><strong>Biopython</strong></td>
+<td>讀取FASTA序列、解析AF3輸出的.cif結構檔、依殘基類型分離蛋白質與DNA鏈</td>
+</tr>
+<tr>
+<td>資料整理</td>
+<td><strong>pandas / csv（標準庫）</strong></td>
+<td>整理變異體清單、彙整AF3信心分數成排序表</td>
+</tr>
+<tr>
+<td>資料格式</td>
+<td><strong>json（標準庫）</strong></td>
+<td>產生AF3網頁版所需的批次上傳格式</td>
+</tr>
+<tr>
+<td>視覺化</td>
+<td><strong>matplotlib</strong></td>
+<td>繪製ipTM排序長條圖</td>
+</tr>
+<tr>
+<td>開發環境</td>
+<td><strong>VS Code</strong></td>
+<td>撰寫與執行所有Python腳本</td>
+</tr>
+</tbody>
+</table>
+<p>整條流程除了AF3與HDOCK這兩個網頁服務需要人工上傳/下載之外，其餘資料處理都由上述Python套件自動化完成，方便之後有新的變異體批次或新的目標蛋白質時，重複套用同一套腳本。</p>
+<h2 id="_14">流程限制<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<ol>
+<li>ipTM與Docking Score都只是計算模型給出的相對信心指標，不能直接對應到Kd、koff等實驗量測的物理量。</li>
+<li>AF3對短的單股DNA/RNA這類高度柔性、沒有固定折疊形態的分子，預測不確定性本身就偏高，建議搭配已知的實驗結構（如本次使用的1HUT）做校驗，不宜完全依賴。</li>
+<li>目前排序基於13/19個變異體的資料，且僅對前段候選做過HDOCK驗證，待剩餘變異體補齊後排序可能變動。</li>
+<li>AF3每個job預設只跑1個隨機種子(seed)，同一序列重複運算，ipTM可能有±0.01~0.02左右的浮動；目前候選間0.01~0.04的分數差距，已經接近這個雜訊範圍，解讀時宜保守。</li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": [], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
